@@ -1,7 +1,13 @@
 from django.db import IntegrityError
+
 from excel_loader.constants import FK_M2M
 from excel_loader.exceptions import ImporterError, ImporterIntegrityException
-from excel_loader.types import FieldImporter, ModelImporter, NestedModelImporter, FileImporter
+from excel_loader.types import (
+    FieldImporter,
+    ModelImporter,
+    NestedModelImporter,
+    FileImporter,
+)
 
 
 class ExcelSheetParser(object):
