@@ -1,3 +1,7 @@
+import os
+
+from django.conf.global_settings import MEDIA_ROOT
+
 from excel_loader.constants import FK_DEFAULT
 from excel_loader.parsers import (
     get_boolean,
@@ -143,3 +147,23 @@ class NestedModelImporter(ValueImporter):
     mandatory_fields = ('field_to_set', 'model')
 
 
+class FileImporter(ValueImporter):
+    """
+    FileImporter for any type of file assignation
+
+    :cvar mandatory_fields: tuple that sets the mandatory fields of the class
+    """
+
+    mandatory_fields = ('field_to_set',)
+    upload_to = ''
+
+    def get_value(self, raw_value=None):
+        """
+        Function that returns the value already parsed by the correct parser
+
+        :param raw_value: var to be parsed
+
+        :return: var already on the correct format
+        """
+
+        return os.path.join(MEDIA_ROOT, self.upload_to, raw_value)

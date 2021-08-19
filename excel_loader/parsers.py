@@ -119,3 +119,4 @@ def get_percentage(value):
         value = 0
 
     return value
+

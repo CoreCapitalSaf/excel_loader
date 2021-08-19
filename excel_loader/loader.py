@@ -1,7 +1,7 @@
 from django.db import IntegrityError
 from excel_loader.constants import FK_M2M
 from excel_loader.exceptions import ImporterError, ImporterIntegrityException
-from excel_loader.types import FieldImporter, ModelImporter, NestedModelImporter
+from excel_loader.types import FieldImporter, ModelImporter, NestedModelImporter, FileImporter
 
 
 class ExcelSheetParser(object):
@@ -77,7 +77,8 @@ class DataParser:
         custom implementation
     """
 
-    base_types = (FieldImporter, ModelImporter, NestedModelImporter)
+    base_types = (
+        FieldImporter, ModelImporter, NestedModelImporter, FileImporter)
 
     def __init__(self, sheet_parser, sheet):
         """
@@ -113,6 +114,8 @@ class DataParser:
             parser.raw_value = value
             nested_fields.append(parser)
         elif type(parser) == FieldImporter:
+            instance_kwargs[parser.field_to_set] = parser.get_value(value)
+        elif type(parser) == FileImporter:
             instance_kwargs[parser.field_to_set] = parser.get_value(value)
         elif type(parser) == ModelImporter:
             if not parser.reverse:

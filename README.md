@@ -77,7 +77,7 @@ Excel loader is a Django app to import excels to Django databases defined on mod
 4. Create a custom command on the app you will be importing the models to e.g.
 
     ```    
-    app_name/management/commands/custom_command.py
+    app_name/management/commands/load_funds.py
     ```
 
 5. Command structure
